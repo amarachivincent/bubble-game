@@ -1,0 +1,23 @@
+p,span{
+margin:0;
+padding:5px;
+}
+
+#container{
+float:left;
+width:15px;
+border-radius: 650px;
+color:white;
+padding:5px;
+text-align:center;
+}
+#score{
+color:blue;
+background:white;
+
+
+}
+#speed{
+clear:both;
+
+}

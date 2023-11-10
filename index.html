@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<title>Settings</title>
+<meta charset='utf-8'/>
+<meta name='viewport' content='width=device-width, initial-scal=1.0' />
+<link href='css/setting.css' rel='stylesheet'/>
+
+</head>
+<body>
+<div id='container'>
+
+  <div id='instruction'>
+   <h3>Instructions</h3>
+   <p>
+      The Bubble game was design to help improve proficiency in the use of keyboards.<br/>
+      Alphabets randomly bubbles up on the screen in downward descend<br/>
+      The purpose of the game is to prevent the alphabet from touching the ground<br/>
+      you do this by typing on the key that corresponds to the alphabet that you want to remove from the screen<br/>
+      the game ends when any one of the alphabet hits the ground<br/><br/>
+
+      you can adjust the speed and words of the game in the setting section<br/><br/>
+
+      I hope you will enjoy the game. <br/>Bye<br/><br/>
+      Ifeduba Amarachi
+
+  </p>
+  </div>
+  <div id='settings'>
+  <form action='game.html' method='GET'>
+  <fieldset>
+   <legend><h3>Game Settings</h3></legend>
+   <label for='word'></label>
+   <input type='text' id='word' name='word' placeholder='Enter game words to display'  />
+   <label for='speed'></label>
+   <select name='choice'>
+    <option value=1000>Select game speed</option>
+    <option value=1000>1 minute</option>
+    <option value=2000>2 minutes</option>
+    <option value=3000>3 minutes</option>
+   </select>
+   <label for 'action'></label>
+   <input type='submit' name='action' id='action' value='Play Game' />
+  </fieldset>
+  </form>
+  </div>
+
+</div>
+<div id='play'>
+   <div id='start'><a href='game.html'>Play Game</a></div>
+</div>
+
+</body>
+<script>
+document.getElementById('start').addEventListener('click',function(event){
+event.preventDefault();
+ document.getElementById('action').click();
+
+
+});
+</script>
+</html>

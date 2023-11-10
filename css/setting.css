@@ -1,0 +1,75 @@
+#container{
+display:flex;
+justify-content:space-around;
+padding:20px;
+}
+
+#play{
+display:flex;
+justify-content: center;
+
+
+}
+
+#start a{
+
+text-decoration: none;
+
+}
+
+fieldset,legend{
+padding:6px;	
+background: #fff;
+}
+
+label{
+display: block;
+padding:8px;
+background: #dde;
+
+}
+
+input[type='submit']{
+width:50%;
+background:blue;
+color:white;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing: border-box;
+
+}
+body{
+
+line-height:24px;
+
+
+}
+
+#instruction{
+text-align: justify;
+padding:10px;
+width:40%;
+background:#446;
+color:white;
+border:1px solid #446;
+
+}
+
+input,select{
+background:#fff;
+width:100%;
+line-height: 20px;
+padding:5px;
+border:0;
+border:1px solid black;
+
+}
+
+#settings{
+border:1px solid white;
+width:20%;
+padding:10px;
+}
