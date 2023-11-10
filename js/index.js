@@ -14,25 +14,23 @@ function getSettings()
 
 	if(input.indexOf('choice')==7)
 	{
-     
-       return {'word':undefined,'speed':1000}
+       	l=input.slice(input.indexOf('length'),(input.indexOf('action')-1)).split('=')[1];
+       return {'word':undefined,'speed':1000,'length':l}
 	}
 	else{
 
 
 	w=input.slice(1,(input.indexOf('choice')-1)).split('=')[1];
-	s=input.slice(input.indexOf('choice'),(input.indexOf('action')-1)).split('=')[1];
-  
-     return {'word':w,'speed':s}
+	s=input.slice(input.indexOf('choice'),(input.indexOf('length')-1)).split('=')[1];
+  	l=input.slice(input.indexOf('length'),(input.indexOf('action')-1)).split('=')[1];
+     return {'word':w,'speed':s,'length':l}
 
        }
 
 }
 
 
-init(0,getSettings().word);
-
-
+init(getSettings().length,getSettings().word);
 
 
 function init(num=26,filter)
@@ -53,7 +51,13 @@ function init(num=26,filter)
 
 		for (i = 65; i <= 90; i++) {
 		    letters.push(String.fromCharCode(i));
-		    num=26;
+		    if(getSettings().length && getSettings().length<=26)
+		    	{
+                  num=getSettings().length;
+		    	}else{
+                  num=26;
+		    	}
+		 
 		}
 
   }
@@ -137,7 +141,7 @@ bounce=()=>{
 
         
 	speed.innerHTML='Speed: '+ count;
-	if(count==450)
+	if(count==400)
 	{
 
 	  speed.innerHTML='GAME OVER';
