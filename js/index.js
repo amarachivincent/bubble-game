@@ -91,7 +91,7 @@ document.body.appendChild(topd);
 
 this.getBall=function(){
 
-	elem=document.createElement('div');
+	elem=document.createElement('button');
 	att=document.createAttribute('class');
 	att.value=this.name;
 	elem.setAttributeNode(att);
@@ -100,10 +100,10 @@ this.getBall=function(){
 	elem.style.position='relative';
 	elem.style.background=this.color;
 	elem.style.color='white';
-	elem.style.width='20px';
-	elem.style.borderRadius='200px';
+	elem.style.borderRadius='350px';
 	elem.style.top=this.count+'px';
-	elem.style.padding='10px';
+	elem.style.padding='13px';
+	elem.style.border='1px solid white';
 	elem.style.textAlign='center';
 	topd.appendChild(elem);
 	return topd;
@@ -166,8 +166,8 @@ bounce=()=>{
 document.addEventListener('keypress',function(event){
 
 
-balls=document.querySelectorAll('div');
-
+balls=document.querySelectorAll('button');
+container=document.getElementById('container');
 
 
    for(var i=0;i<balls.length;i++)
@@ -180,8 +180,8 @@ balls=document.querySelectorAll('div');
       instance.count-=10;
       score+=1;
      document.getElementById('score').innerHTML=Math.floor((score/balls.length)*100);   
-     document.getElementById('container').innerHTML=event.key.toUpperCase();
-     document.getElementById('container').style.background='black';
+     container.innerHTML=event.key.toUpperCase();
+     container.style.background='black';
      document.getElementById(balls[i].parentNode.id).removeChild(document.querySelector("."+balls[i].className+""));
 
 
