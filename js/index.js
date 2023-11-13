@@ -1,11 +1,11 @@
 
 
-count=0;
+screenY=0;
 score=0;
 names=[];
 letters=[];
 colors=[];
-
+timer=0;
 
 
 function getSettings()
@@ -15,7 +15,8 @@ function getSettings()
 	if(input.indexOf('choice')==7)
 	{
        	l=input.slice(input.indexOf('length'),(input.indexOf('action')-1)).split('=')[1];
-       return {'word':undefined,'speed':1000,'length':l}
+       	timer=1000;
+       return {'word':undefined,'timer':1000,'length':l}
 	}
 	else{
 
@@ -23,7 +24,8 @@ function getSettings()
 	w=input.slice(1,(input.indexOf('choice')-1)).split('=')[1];
 	s=input.slice(input.indexOf('choice'),(input.indexOf('length')-1)).split('=')[1];
   	l=input.slice(input.indexOf('length'),(input.indexOf('action')-1)).split('=')[1];
-     return {'word':w,'speed':s,'length':l}
+  	timer=s;
+     return {'word':w,'timer':s,'length':l}
 
        }
 
@@ -75,13 +77,13 @@ function init(num=26,filter)
 }
 
 
-function Ball(name,left,text,color,count){
+function Ball(name,screenx,text,color,screenY){
 
 
-this.left=left;
+this.left=screenx;
 this.text=text;
 this.color=color;
-this.count=count;
+this.screenY=screenY;
 this.name=name;
 
 topd=document.createElement('div');
@@ -100,9 +102,9 @@ this.getBall=function(){
 	elem.style.position='relative';
 	elem.style.background=this.color;
 	elem.style.color='white';
-	elem.style.borderRadius='350px';
-	elem.style.top=this.count+'px';
-	elem.style.padding='13px';
+	elem.style.borderRadius='12px';
+	elem.style.top=this.screenY+'px';
+	elem.style.padding='12px';
 	elem.style.border='1px solid white';
 	elem.style.textAlign='center';
 	topd.appendChild(elem);
@@ -110,60 +112,70 @@ this.getBall=function(){
 
 }
 
-
 return this;
 
 
 }
 
 
-function shuffle(){
+function shuffle(screeny){
 
 
 	for(var i=0;i<names.length;i++)
 	{
-	    screen=Math.floor(Math.random()*1200);
-		xi=new Ball(names[i],screen,letters[i].toUpperCase(),colors[i],count);
+	    screenX=Math.floor(Math.random()*1200);
+		xi=new Ball(names[i],screenX,letters[i].toUpperCase(),colors[i],screeny);
 		document.body.replaceChild(xi.getBall(),document.getElementById(names[i]));
 	}
 
         instance=xi;
+ 
+	   
    
 }
 
 
 
 bounce=()=>{
+		    
+ 
 
-	count+=10;
+
 	speed=document.getElementById('speed');
-	replay=document.getElementById('replay');
+	replay=document.getElementById('replay');	     	
+     
+	   
 
-        
-	speed.innerHTML='Speed: '+ count;
-	if(count==400)
-	{
+			screenY+=50;
+		    shuffle(screenY);
+       
+			if(screenY>=350)
+			{
 
-	  speed.innerHTML='GAME OVER';
-	
-    
-	  count=0;
+			  speed.innerHTML='GAME OVER';
 
-      speed.style.color='red';
-	  speed.style.fontSize='25px';
-	  clearInterval(id);
-
-	}
-	  shuffle();
-
-	  replay.innerHTML='<a href="index.html">'+' '+'Settings</a>';
+			  screenY=0;
+		      speed.style.color='red';
+			  speed.style.fontSize='25px';		
+		      stopGame(id);
+			}else{
 
 
+			speed.innerHTML='Speed: '+ (timer/1000);
+
+		     id=setTimeout(bounce,timer)
+		    }	
+
+ 
+
+            document.getElementById('score').innerHTML=Math.floor(score); 
+		    replay.innerHTML='<a href="index.html">'+' '+'Settings</a>';
+		    
+
+	     
 }
 
-
-
-document.addEventListener('keypress',function(event){
+document.addEventListener('click',function(event){
 
 
 balls=document.querySelectorAll('button');
@@ -173,22 +185,36 @@ container=document.getElementById('container');
    for(var i=0;i<balls.length;i++)
    {
        
+    
+  
+     if(event.target.innerHTML.toUpperCase()==balls[i].innerHTML){
 
   
-     if(event.key.toUpperCase()==balls[i].innerHTML){
 
-      instance.count-=10;
+      if(timer>0)
+      {
+
+    	timer-=20;
+
+      }
+
+     if(screenY>0)
+      {
+      	screenY-=10;
+      }
+
       score+=1;
-     document.getElementById('score').innerHTML=Math.floor((score/balls.length)*100);   
-     container.innerHTML=event.key.toUpperCase();
+      
+    
+     container.innerHTML=event.target.innerHTML.toUpperCase();
      container.style.background='black';
      document.getElementById(balls[i].parentNode.id).removeChild(document.querySelector("."+balls[i].className+""));
 
-
      }
 
-   }
 
+      document.getElementById('score').innerHTML=Math.floor(score);  
+   }
 
 
 
@@ -196,6 +222,58 @@ container=document.getElementById('container');
 
 
 
+document.addEventListener('keypress',function(event){
 
-id=setInterval(bounce,getSettings().speed);
+
+
+balls=document.querySelectorAll('button');
+container=document.getElementById('container');
+
+
+   for(var i=0;i<balls.length;i++)
+   {
+       
+    
+  
+     if(event.key.toUpperCase()==balls[i].innerHTML){
+
+  
+
+      if(timer>0)
+      {
+
+    	timer-=20;
+
+      }
+
+     if(screenY>0)
+      {
+      	screenY-=10;
+      }
+
+      score+=1;
+      
+    
+     container.innerHTML=event.key.toUpperCase();
+     container.style.background='black';
+     document.getElementById(balls[i].parentNode.id).removeChild(document.querySelector("."+balls[i].className+""));
+
+     }
+
+
+      document.getElementById('score').innerHTML=Math.floor(score);  
+   }
+
+
+
+});
+
+
+function stopGame(id)
+{
+
+	clearTimeout(id)
+}
+
+id=setTimeout(bounce,3000);
 
